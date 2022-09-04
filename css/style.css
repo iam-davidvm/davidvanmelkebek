@@ -1,0 +1,87 @@
+:root {
+    --clr-main-blue: rgba(60, 47, 128, 1);
+    --clr-main-beige: rgba(240, 240, 230, 1);
+}
+
+*, ::before, ::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+header {
+    background-color: rgba(174, 232, 202, 1);
+    color: var(--clr-main-blue);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#socials a {
+    text-decoration: none;
+    color: var(--clr-main-blue);
+}
+
+#socials a + a {
+    margin-left: 10px;
+}
+
+#socials i {
+    font-size: 2.5rem;
+    transition: transform 170ms ease-in;
+}
+
+#socials i:hover, #socials i:focus {
+    transform: scale(1.2);
+}
+
+#brand {
+    font-family: 'Coustard', serif;
+    font-weight: 900;
+    font-size: 1.7rem;
+}
+
+#hero {
+    padding: 40px 0 20px;
+}
+
+#hero-title {
+    font-family: 'Heebo', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 900;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+
+#hero-body {
+    font-family: 'Heebo', sans-serif;
+    font-size: 0.8rem;
+}
+
+main {
+    background-color: var(--clr-main-beige);
+}
+
+h1 {
+    font-family: 'Heebo', sans-serif;
+    color: var(--clr-main-blue);
+    font-size: 1.4rem;
+}
+
+#select-categories {
+    display: block;
+    width: 100%;
+}

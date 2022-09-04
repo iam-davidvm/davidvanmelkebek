@@ -5,9 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal website David Van Melkebek</title>
+    <link href="https://fonts.googleapis.com/css2?family=Coustard:wght@400;900&family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" rel="stylesheet">
 </head>
 <body>
+    <header>
+        <nav class="container">
+            <p id="brand">David</p>
+            <p id="socials">
+                <a href="https://github.com/iam-davidvm" target="_blank">
+                    <i class="fa-brands fa-square-github fa-2xl"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/david-van-melkebeke-a73b317/"  target="_blank">
+                    <i class="fa-brands fa-linkedin fa-2xl"></i>
+                </a>
+            </p>
+        </nav>
+        <div id="hero" class="container">
+            <p id="hero-title">I am a work in progress till eternity and this is my construction site</p>
+            <p id="hero-body">This is my current presentation as a web developer in training. Feel free to contact me if you are interested in my services.</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Posts</h1>
+            <select name="categories" id="select-categories" aria-placeholder="search in categories">
+                <option value="showcase">showcase</option>
+                <option value="blog">blog</option>
+                <option value="tutorial">tutorial</option>
+            </select>
+            <input type="text" name="search" id="search" placeholder="Search">
+        </div>
+    </main>
     
     <script src="js/app.js"></script>
 </body>
