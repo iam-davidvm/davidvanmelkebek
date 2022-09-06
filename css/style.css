@@ -1,3 +1,5 @@
+/* global */
+
 :root {
     --clr-main-blue: rgba(60, 47, 128, 1);
     --clr-main-beige: rgba(240, 240, 230, 1);
@@ -64,6 +66,10 @@ nav {
     font-size: 1.7rem;
 }
 
+/* end of global */
+
+/* front */
+
 #hero {
     padding: 30px 0;
     display: grid;
@@ -95,10 +101,23 @@ main .container {
     padding-top: 30px;
 }
 
-h1 {
+h1, h2, h3 {
     color: var(--clr-main-blue);
+    font-family: 'Coustard', serif;
+    font-weight: 400;
+}
+
+h1 {
     font-size: 1.4rem;
     padding-left: 1px;
+}
+
+h2 {
+    font-size: 1.25rem;
+}
+
+h3 {
+    font-size: 1.125rem;
 }
 
 #filter {
@@ -270,6 +289,10 @@ option {
     color: var(--clr-main-beige);
 }
 
+/* end of front */
+
+
+/* global */
 
 footer {
     background-color: var(--clr-main-blue);
@@ -309,9 +332,109 @@ footer i:hover {
     font-size: .7rem;
 }
 
+/* end of global */
+
+#page-hero {
+    height: 380px;
+    position: relative;
+}
+
+#page-hero-image {
+    height: 420px;
+    width: 100%;
+    object-fit: cover;
+}
+
+#page-hero-category {
+    position: absolute;
+    bottom: 0;
+    transform: translate(10px, 46px);
+}
+
+#page-content {
+    padding: 60px;
+    color: var(--clr-main-blue)
+}
+
+#page-content .container {
+    padding: 30px 10px 0;
+}
+
+#page-content h1 {
+    line-height: 1;
+    padding: 0;
+}
+
+#page-content p{
+    padding: 10px 0;
+}
+
+#page-content p:nth-of-type(2){
+    padding-top: 20px;
+}
+
+#page-content #page-date {
+    font-size: .8rem;
+    font-weight: 100;
+    padding: 0;
+}
+
+#page-content .page-content-quote {
+    max-width: 500px;
+    width: 80%;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--clr-sec-light);
+    padding: 30px 0;
+}
+
+#page-content a {
+    text-decoration: none;
+    color: var(--clr-sec-light);
+    font-weight: 700;
+}
+
+#page-content a:hover,
+#page-content a:focus {
+    text-decoration: underline;
+}
+
+#page-content h2,
+#page-content h3 {
+    padding: 15px 0;
+}
+
+.columns {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.columns img {
+    display: none;
+}
+
+#page-related-content {
+    margin-top: 30px;
+}
+
+#page-related-content #posts {
+    margin-top: 15px;
+}
+
 @media (min-width: 765px) {
     #posts {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .columns {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .columns img {
+        display: block;
     }
 }
 
