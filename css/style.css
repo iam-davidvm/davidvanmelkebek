@@ -155,6 +155,7 @@ option {
     line-height: 1.4em;
 }
 
+
 #search {
     height: 45px;
     padding: 10px 12px 10px 40px;
@@ -351,12 +352,16 @@ footer i:hover {
     transform: translate(10px, 46px);
 }
 
+
+/* Post page */
+
 #page-content {
     padding: 60px;
     color: var(--clr-main-blue)
 }
 
-#page-content .container {
+#page-content .container,
+#create .container {
     padding: 30px 10px 0;
 }
 
@@ -424,6 +429,106 @@ footer i:hover {
     margin-top: 15px;
 }
 
+/* post page */
+#create {
+    min-height: calc(100vh - 58px);
+}
+
+
+#buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+#buttons button {
+    border: 3px solid var(--clr-main-blue);
+    padding: 4em 3em;
+    cursor: pointer;
+    background-color: transparent;
+    color: var(--clr-main-blue);
+    font-size: 1.2rem;
+    transition: background-color 200ms ease-in, color 200ms ease-in;
+}
+
+#buttons button:hover,
+#buttons button:focus {
+    background-color: var(--clr-main-blue);
+    color: white;
+}
+
+#add label {
+    color: var(--clr-main-blue);
+    font-family: 'Coustard', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+#add input, 
+#add textarea {
+    margin: 5px 0 20px;
+    border: 1px solid var(--clr-main-blue);
+    border-radius: .5em;
+    background-color: rgba(217, 217, 217, 0.5);
+    min-height: 45px;
+}
+
+#add label,
+#add input, 
+#add textarea {
+    display: block;
+    width: 100%;
+}
+
+#add-textbox {
+    border: 1px solid var(--clr-main-blue);
+    border-radius: .5em;
+    background-color: rgba(217, 217, 217, 0.5);
+}
+
+#add-textbox-buttons,
+#add-textbox-text {
+    padding: 10px;
+}
+
+#add-textbox-buttons {
+    border-bottom: 1px solid var(--clr-main-blue);
+}
+
+#add-textbox-buttons button {
+    width: 45px;
+    height: 45px;
+    background-color: var(--clr-main-blue);
+    border: 1px solid var(--clr-main-blue);
+    color: white;
+    border-radius: .5em;
+    cursor: pointer;
+    transition: background-color 200ms ease-in, color 200ms ease-in;
+}
+
+#add-textbox-buttons button:hover,
+#add-textbox-buttons button:focus {
+    background-color: transparent;
+    color: var(--clr-main-blue);
+} 
+
+#bold,
+#strong {
+    font-weight: 700;
+}
+
+#italic {
+    font-style: italc;
+}
+
+#underline {
+    text-decoration: underline;
+}
+
+#add-textbox-text {
+    min-height: 33vh;
+}
+
 @media (min-width: 765px) {
     #posts {
         grid-template-columns: 1fr 1fr;
@@ -435,6 +540,10 @@ footer i:hover {
 
     .columns img {
         display: block;
+    }
+
+    #buttons {
+        grid-template-columns: 1fr 1fr;
     }
 }
 

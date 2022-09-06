@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal website David Van Melkebek</title>
+    <link href="https://fonts.googleapis.com/css2?family=Coustard:wght@400;900&family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <p id="brand"><a href="../index.html">David</a></p>
+            <p id="socials">
+                <a href="https://github.com/iam-davidvm" target="_blank">
+                    <i class="fa-brands fa-square-github fa-2xl"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/david-van-melkebeke-a73b317/"  target="_blank">
+                    <i class="fa-brands fa-linkedin fa-2xl"></i>
+                </a>
+            </p>
+        </nav>
+    </header>
+
+    <main id="create">
+        <div class="container">
+            <section id="buttons">
+                <button id="add-button">Add new content</button>
+                <button id="edit-button">Edit content</button>
+            </section>
+
+            <section id="add">
+                <label for="title-input">Title:</label>
+                <input type="text" name="title" id="add-title" required>
+                <label for="add-category">Category:</label>
+                <input type="text" name="category" id="add-category" required>
+                <label for="add-teaser">Intro teaser:</label>
+                <textarea name="teaser" id="teaser" rows="10"></textarea>
+                <label for="add-textbox-text">Text:</label>
+                <div id="add-textbox">
+                    <div id="add-textbox-buttons">
+                        <button id="bold">B</button>
+                        <button id="strong">S</button>
+                        <button id="italic">I</button>
+                        <button id="underline">U</button>
+                    </div>
+                    <div id="add-textbox-text" contenteditable="true">
+                        Replace text here
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <script src="js/app.js"></script>
+</body>
+</html>
