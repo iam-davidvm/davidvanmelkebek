@@ -480,6 +480,10 @@ footer i:hover {
     width: 100%;
 }
 
+#add #page-content-label {
+    margin-top: 30px;
+}
+
 #add-textbox {
     border: 1px solid var(--clr-main-blue);
     border-radius: .5em;
@@ -506,6 +510,10 @@ footer i:hover {
     transition: background-color 200ms ease-in, color 200ms ease-in;
 }
 
+#add-textbox-buttons button + button {
+    margin-top: 10px;
+}
+
 #add-textbox-buttons button:hover,
 #add-textbox-buttons button:focus {
     background-color: transparent;
@@ -527,6 +535,30 @@ footer i:hover {
 
 #add-textbox-text {
     min-height: 33vh;
+}
+
+#add #page-content {
+    padding-top: 30px;
+}
+
+#edit #search {
+    width: 100%;
+}
+
+#edit ul {
+    list-style-type: none;
+    padding: 40px 10px 50px;
+}
+
+#edit a {
+    line-height: 1.8;
+    color: var(--clr-main-blue);
+    text-decoration: none;
+}
+
+#edit a:hover,
+#edit a:focus {
+    font-weight: 700;
 }
 
 @media (min-width: 765px) {

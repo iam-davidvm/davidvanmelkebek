@@ -3,20 +3,22 @@
         {
             "id": 2,
             "title": "How this website is made",
+            "teaser": "With sweat but without tears or blood"
             "body": "<p>This website only contains HTML, CSS and JS. Even how this content is created is via HTML/CSS/JS.</p><h2>More info</h2><p>Because I type this directly in json in the text editor, it is difficult to find inspiration</p><p>More to come</p>",
-            "date": "5 september 2022",
+            "date": "1662578975",
             "category": "showcase",
-            "hero-image": "289863.png",
+            "random": "289863",
             "url": "how-this-website-is-made-289863",
             "author": "David",
         },
         {
             "id": 1,
             "title": "My journey to become a developer",
+            "teaser": "Just a little bit of text"
             "body": "<p>This is just text to fill up the emptiness</p><h2>Dificulties finding the right message</h2><p>Because I type this directly in json in the text editor, it is difficult to find inspiration</p><p>More to come</p>",
-            "date": "4 september 2022",
+            "date": "1662578970",
             "category": "blog",
-            "hero-image": "145424.png",
+            "random": "145424",
             "url": "my-journey-to-become-a-developer-145424",
             "author": "David",
         }
