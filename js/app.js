@@ -1,23 +1,43 @@
+let selectedCategory = 'all';
+let searchTerm = '';
+
 /* get json file */
 
 async function getPosts() {
     const url = 'arts/arts.json';
     try {
         let res = await fetch(url);
-        return await res.json();
+        let data = await res.json();
+        let posts = data.arts;
+        renderPage(posts);
+        showCategories(posts);
     } catch (error) {
-        console.log("My error: " + error);
+        console.log('My error: ' + error);
     }
 }
+
+getPosts();
 
 /* end of get json file */
 
 /* render page */
 
-async function renderPage() {
-    const posts = await getPosts();
+function renderPage(posts) {
+    
+    if (selectedCategory !== 'all') {
+        posts = posts.filter(item => {
+            return item.category === selectedCategory;
+        })
+    }
+
+    if (searchTerm !== '') {
+        posts = posts.filter(item => {
+            return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+        })
+    }
+
     let html = '';
-    posts.arts.forEach(post => {
+    posts.forEach(post => {
         const postArticle = `<article class="post">
         <figure>
             <a href="/pages/index.html?art=${post.random}" class="overlay">
@@ -38,9 +58,10 @@ async function renderPage() {
 
     const htmlPosts = document.querySelector('#posts');
     htmlPosts.innerHTML = html;
+    if (posts.length === 0) {
+        htmlPosts.innerText = 'No posts available';
+    }
 }
-
-renderPage();
 
 /* end of render page */
 
@@ -48,36 +69,45 @@ renderPage();
 
 const selectCategories = document.getElementById('select-categories');
 
-async function getCategories() {
-    let posts = await getPosts();
-    let categories = [].concat(...posts.arts.map((item) => {
+function showCategories(posts) {
+    // let posts = await getPosts();
+    let categories = [].concat(...posts.map((item) => {
         return [item["category"]];
     }));
+    selectCategories.innerHTML = '<option value="all">All categories</option>';
     for(let i = 0; i < categories.length; i++) {
         const category = categories[i];
         const option = document.createElement("option");
         option.textContent = category.charAt(0).toUpperCase() + category.slice(1);;
         option.value = category;
+        if (category === selectedCategory) {
+            option.selected = true;
+        }
         selectCategories.appendChild(option);
     }
 }
 
-getCategories();
+// getCategories();
 
 /* end of fill dropdown */
 
+/* change dropdown */
+
+selectCategories.addEventListener('change', (e) => {
+    console.log(e.target.value);
+    selectedCategory = e.target.value;
+    getPosts();
+})
+
+/* end of change dropdown */
+
+/* search for title */
 
 const searchTitles = document.getElementById('search');
 
-const newPost = getPosts().then(
-    function(result) {
-        return result;
-    },
-    function(error) {
-        console.log(error);
-    }
-);
-console.log(newPost);
+searchTitles.addEventListener('input', () => {
+    searchTerm = searchTitles.value;
+    getPosts();
+})
 
-
-// searchTitles.addEventListener('change', getTitles);
+/* end search for title */
