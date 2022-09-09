@@ -265,9 +265,12 @@ option {
     margin-bottom: 30px;
 }
 
-.pagination {
+#pager .pagination {
     border: 1px solid var(--clr-main-blue);
     color: var(--clr-main-blue);
+    background-color: transparent;
+    font-family: 'Heebo', sans-serif;
+    font-size: 1rem;
     width: 40px;
     height: 40px;
     margin: 0 5px;
@@ -278,13 +281,13 @@ option {
     border-radius: .5em;
 }
 
-.pagination:hover,
-.pagination:focus {
+#pager .pagination:hover,
+#pager .pagination:focus {
     background-color: var(--clr-main-blue);
     color: var(--clr-main-beige);
 }
 
-.pagination-current {
+#pager .active {
     cursor: default;
     background-color: var(--clr-main-blue);
     color: var(--clr-main-beige);

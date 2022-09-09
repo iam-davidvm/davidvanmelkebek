@@ -1,6 +1,193 @@
 {
     "arts": [
         {
+            "id": 19,
+            "title": "How this website is made",
+            "teaser": "With sweat but without tears or blood",
+            "body": "<p>This website only contains HTML, CSS and JS. Even how this content is created is via HTML/CSS/JS.</p><h2>More info</h2><p>Because I type this directly in json in the text editor, it is difficult to find inspiration</p><p>More to come</p>",
+            "date": "1662578975",
+            "category": "showcase",
+            "random": "289863",
+            "url": "how-this-website-is-made-289863",
+            "author": "David"
+        },
+        {
+            "id": 18,
+            "title": "How this website is made",
+            "teaser": "With sweat but without tears or blood",
+            "body": "<p>This website only contains HTML, CSS and JS. Even how this content is created is via HTML/CSS/JS.</p><h2>More info</h2><p>Because I type this directly in json in the text editor, it is difficult to find inspiration</p><p>More to come</p>",
+            "date": "1662578975",
+            "category": "showcase",
+            "random": "289863",
+            "url": "how-this-website-is-made-289863",
+            "author": "David"
+        },
+        {
+            "id": 17,
+            "title": "How this website is made",
+            "teaser": "With sweat but without tears or blood",
+            "body": "<p>This website only contains HTML, CSS and JS. Even how this content is created is via HTML/CSS/JS.</p><h2>More info</h2><p>Because I type this directly in json in the text editor, it is difficult to find inspiration</p><p>More to come</p>",
+            "date": "1662578975",
+            "category": "showcase",
+            "random": "289863",
+            "url": "how-this-website-is-made-289863",
+            "author": "David"
+        },
+        {
+            "id": 16,
+            "title": "How this website is made",
+            "teaser": "With sweat but without tears or blood",
+            "body": "<p>This website only contains HTML, CSS and JS. Even how this content is created is via HTML/CSS/JS.</p><h2>More info</h2><p>Because I type this directly in json in the text editor, it is difficult to find inspiration</p><p>More to come</p>",
+            "date": "1662578975",
+            "category": "showcase",
+            "random": "289863",
+            "url": "how-this-website-is-made-289863",
+            "author": "David"
+        },
+        {
+            "id": 15,
+            "title": "How this website is made",
+            "teaser": "With sweat but without tears or blood",
+            "body": "<p>This website only contains HTML, CSS and JS. Even how this content is created is via HTML/CSS/JS.</p><h2>More info</h2><p>Because I type this directly in json in the text editor, it is difficult to find inspiration</p><p>More to come</p>",
+            "date": "1662578975",
+            "category": "showcase",
+            "random": "289863",
+            "url": "how-this-website-is-made-289863",
+            "author": "David"
+        },
+        {
+            "id": 14,
+            "title": "How this website is made",
+            "teaser": "With sweat but without tears or blood",
+            "body": "<p>This website only contains HTML, CSS and JS. Even how this content is created is via HTML/CSS/JS.</p><h2>More info</h2><p>Because I type this directly in json in the text editor, it is difficult to find inspiration</p><p>More to come</p>",
+            "date": "1662578975",
+            "category": "showcase",
+            "random": "289863",
+            "url": "how-this-website-is-made-289863",
+            "author": "David"
+        },
+        {
+            "id": 13,
+            "title": "How this website is made",
+            "teaser": "With sweat but without tears or blood",
+            "body": "<p>This website only contains HTML, CSS and JS. Even how this content is created is via HTML/CSS/JS.</p><h2>More info</h2><p>Because I type this directly in json in the text editor, it is difficult to find inspiration</p><p>More to come</p>",
+            "date": "1662578975",
+            "category": "showcase",
+            "random": "289863",
+            "url": "how-this-website-is-made-289863",
+            "author": "David"
+        },
+        {
+            "id": 12,
+            "title": "How this website is made",
+            "teaser": "With sweat but without tears or blood",
+            "body": "<p>This website only contains HTML, CSS and JS. Even how this content is created is via HTML/CSS/JS.</p><h2>More info</h2><p>Because I type this directly in json in the text editor, it is difficult to find inspiration</p><p>More to come</p>",
+            "date": "1662578975",
+            "category": "showcase",
+            "random": "289863",
+            "url": "how-this-website-is-made-289863",
+            "author": "David"
+        },
+        {
+            "id": 11,
+            "title": "How this website is made",
+            "teaser": "With sweat but without tears or blood",
+            "body": "<p>This website only contains HTML, CSS and JS. Even how this content is created is via HTML/CSS/JS.</p><h2>More info</h2><p>Because I type this directly in json in the text editor, it is difficult to find inspiration</p><p>More to come</p>",
+            "date": "1662578975",
+            "category": "showcase",
+            "random": "289863",
+            "url": "how-this-website-is-made-289863",
+            "author": "David"
+        },
+        {
+            "id": 10,
+            "title": "How this website is made",
+            "teaser": "With sweat but without tears or blood",
+            "body": "<p>This website only contains HTML, CSS and JS. Even how this content is created is via HTML/CSS/JS.</p><h2>More info</h2><p>Because I type this directly in json in the text editor, it is difficult to find inspiration</p><p>More to come</p>",
+            "date": "1662578975",
+            "category": "showcase",
+            "random": "289863",
+            "url": "how-this-website-is-made-289863",
+            "author": "David"
+        },
+        {
+            "id": 9,
+            "title": "How this website is made",
+            "teaser": "With sweat but without tears or blood",
+            "body": "<p>This website only contains HTML, CSS and JS. Even how this content is created is via HTML/CSS/JS.</p><h2>More info</h2><p>Because I type this directly in json in the text editor, it is difficult to find inspiration</p><p>More to come</p>",
+            "date": "1662578975",
+            "category": "showcase",
+            "random": "289863",
+            "url": "how-this-website-is-made-289863",
+            "author": "David"
+        },
+        {
+            "id": 8,
+            "title": "How this website is made",
+            "teaser": "With sweat but without tears or blood",
+            "body": "<p>This website only contains HTML, CSS and JS. Even how this content is created is via HTML/CSS/JS.</p><h2>More info</h2><p>Because I type this directly in json in the text editor, it is difficult to find inspiration</p><p>More to come</p>",
+            "date": "1662578975",
+            "category": "showcase",
+            "random": "289863",
+            "url": "how-this-website-is-made-289863",
+            "author": "David"
+        },
+        {
+            "id": 7,
+            "title": "How this website is made",
+            "teaser": "With sweat but without tears or blood",
+            "body": "<p>This website only contains HTML, CSS and JS. Even how this content is created is via HTML/CSS/JS.</p><h2>More info</h2><p>Because I type this directly in json in the text editor, it is difficult to find inspiration</p><p>More to come</p>",
+            "date": "1662578975",
+            "category": "showcase",
+            "random": "289863",
+            "url": "how-this-website-is-made-289863",
+            "author": "David"
+        },
+        {
+            "id": 6,
+            "title": "How this website is made",
+            "teaser": "With sweat but without tears or blood",
+            "body": "<p>This website only contains HTML, CSS and JS. Even how this content is created is via HTML/CSS/JS.</p><h2>More info</h2><p>Because I type this directly in json in the text editor, it is difficult to find inspiration</p><p>More to come</p>",
+            "date": "1662578975",
+            "category": "showcase",
+            "random": "289863",
+            "url": "how-this-website-is-made-289863",
+            "author": "David"
+        },
+        {
+            "id": 5,
+            "title": "How this website is made",
+            "teaser": "With sweat but without tears or blood",
+            "body": "<p>This website only contains HTML, CSS and JS. Even how this content is created is via HTML/CSS/JS.</p><h2>More info</h2><p>Because I type this directly in json in the text editor, it is difficult to find inspiration</p><p>More to come</p>",
+            "date": "1662578975",
+            "category": "showcase",
+            "random": "289863",
+            "url": "how-this-website-is-made-289863",
+            "author": "David"
+        },
+        {
+            "id": 4,
+            "title": "How this website is made",
+            "teaser": "With sweat but without tears or blood",
+            "body": "<p>This website only contains HTML, CSS and JS. Even how this content is created is via HTML/CSS/JS.</p><h2>More info</h2><p>Because I type this directly in json in the text editor, it is difficult to find inspiration</p><p>More to come</p>",
+            "date": "1662578975",
+            "category": "showcase",
+            "random": "289863",
+            "url": "how-this-website-is-made-289863",
+            "author": "David"
+        },
+        {
+            "id": 3,
+            "title": "How this website is made",
+            "teaser": "With sweat but without tears or blood",
+            "body": "<p>This website only contains HTML, CSS and JS. Even how this content is created is via HTML/CSS/JS.</p><h2>More info</h2><p>Because I type this directly in json in the text editor, it is difficult to find inspiration</p><p>More to come</p>",
+            "date": "1662578975",
+            "category": "showcase",
+            "random": "289863",
+            "url": "how-this-website-is-made-289863",
+            "author": "David"
+        },
+        {
             "id": 2,
             "title": "How this website is made",
             "teaser": "With sweat but without tears or blood",

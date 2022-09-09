@@ -33,13 +33,13 @@
         <div class="container">
             <h1>Posts</h1>
             <div id="filter">
-                <select name="categories" id="select-categories" aria-placeholder="search in categories">
+                <select name="categories" id="select-categories" aria-placeholder="search in categories" aria-live="polite">
                     
                 </select>
-                <input type="text" name="search" id="search" placeholder="Search">
+                <input type="text" name="search" id="search" placeholder="Search" aria-live="polite">
             </div>
-            <section id="posts">
-                <article class="post">
+            <section id="posts" aria-live="polite">
+                <!-- <article class="post">
                     <figure>
                         <a href="/pages/#" class="overlay">
                             <div class="center">
@@ -112,15 +112,23 @@
                     <p><span class="category-pill">showcase</span></p>
                     <h1>Lorem ipsum dolor sit</h1>
                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis consequatur unde reiciendis natus temporibus quam qui? Minima dolores sequi ratione at odit atque accusamus, officia quis perferendis. Quibusdam, dolor voluptates.</p>
-                </article>
+                </article> -->
             </section>
             <section id="pager">
-                <p class="pagination pagination-current">1</p>
+                <button class="pagination" id="prev-button" title="Previous page" aria-label="Previous page">
+                    &lt;
+                  </button>
+                <!-- <p class="pagination pagination-current">1</p>
                 <p class="pagination">2</p>
                 <p class="pagination">3</p>
                 <p class="pagination">4</p>
-                <p class="pagination">5</p>
-                <p class="pagination pagination-next">></p>
+                <p class="pagination">5</p> -->
+                <div id="pagination-numbers">
+ 
+                </div>
+                <button class="pagination" id="next-button" title="Next page" aria-label="Next page">
+                    &gt;
+                  </button>
             </section>
         </div>
     </main>
