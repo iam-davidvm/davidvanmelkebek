@@ -97,13 +97,13 @@ function renderPage(posts) {
       });
 
 
-    posts = posts.slice(prevRange, currRange);
-    console.log(posts);
+    let shownPosts = posts.slice(prevRange, currRange);
+    console.log(shownPosts);
 
     /* End of Pagination */
     
     let html = '';
-    posts.forEach(post => {
+    shownPosts.forEach(post => {
         const postArticle = `<article class="post">
         <figure>
         <a href="/pages/index.html?art=${post.random}" class="overlay">
