@@ -63,9 +63,9 @@ function renderPage(posts) {
 
 
     /* TODO */
-    // REFACTOR PAGINATION CODE
-    // SEARCH DOESN'T WORK ANYMORE
-    // CATEGORY FILTER DOESN'T SHOW UNIQUE VALUES
+    // REFACTOR PAGINATION CODE > NOK
+    // SEARCH DOESN'T WORK ANYMORE  > OK
+    // CATEGORY FILTER DOESN'T SHOW UNIQUE VALUES > OK
 
 
 
@@ -137,10 +137,9 @@ function renderPage(posts) {
 const selectCategories = document.getElementById('select-categories');
 
 function showCategories(posts) {
-    // let posts = await getPosts();
-    let categories = [].concat(...posts.map((item) => {
-        return [item["category"]];
-    }));
+
+    const categories = [...new Map(posts.map(item => [item.category, item.category])).values()];
+    
     selectCategories.innerHTML = '<option value="all">All categories</option>';
     for(let i = 0; i < categories.length; i++) {
         const category = categories[i];
