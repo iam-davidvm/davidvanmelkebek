@@ -29,6 +29,13 @@ img {
     padding: 10px 0;
 }
 
+#pager #prev-button.d-none,
+#pager #next-button.d-none,
+#no-related,
+.d-none {
+    display: none;
+}
+
 header {
     background-color: var(--clr-main-light);
     color: var(--clr-main-blue);
@@ -281,8 +288,7 @@ option {
     border-radius: .5em;
 }
 
-#pager .pagination:hover,
-#pager .pagination:focus {
+#pager .pagination:hover {
     background-color: var(--clr-main-blue);
     color: var(--clr-main-beige);
 }
@@ -291,6 +297,10 @@ option {
     cursor: default;
     background-color: var(--clr-main-blue);
     color: var(--clr-main-beige);
+}
+
+#pager #pagination-numbers {
+    display: flex;
 }
 
 /* end of front */
@@ -471,6 +481,9 @@ footer i:hover {
 #add textarea {
     margin: 5px 0 20px;
     border: 1px solid var(--clr-main-blue);
+    font-family: 'Heebo', sans-serif;
+    padding: 5px 10px;
+    font-size: 1rem;
     border-radius: .5em;
     background-color: rgba(217, 217, 217, 0.5);
     min-height: 45px;

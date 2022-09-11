@@ -1,10 +1,10 @@
 let selectedCategory = 'all';
 let searchTerm = '';
-const paginationNumbers = document.getElementById("pagination-numbers"); // NAV
-const nextButton = document.getElementById("next-button"); // NAV
-const prevButton = document.getElementById("prev-button"); // NAV
-const paginationLimit = 6; // NAV
-let currentPage; // NAV
+const paginationNumbers = document.getElementById("pagination-numbers");
+const nextButton = document.getElementById("next-button");
+const prevButton = document.getElementById("prev-button");
+const paginationLimit = 6;
+let currentPage;
 let pageNum = 1;
 
 /* get json file */
@@ -28,8 +28,8 @@ getPosts();
 
 /* Pagination */
 const appendPageNumber = (index) => {
+    
     const pageNumber = document.createElement("button");
-    // pageNumber.className = "pagination";
     pageNumber.classList.add("pagination","pagination-number");
     pageNumber.innerHTML = index;
     pageNumber.setAttribute("page-index", index);
@@ -60,19 +60,23 @@ function renderPage(posts) {
     }
     /* end search title */
     
-
-
-    /* TODO */
-    // REFACTOR PAGINATION CODE > NOK
-    // SEARCH DOESN'T WORK ANYMORE  > OK
-    // CATEGORY FILTER DOESN'T SHOW UNIQUE VALUES > OK
-
-
-
-
-
     /* Pagination */
-    const pageCount = Math.ceil(posts.length / paginationLimit); // NAV
+    const pageCount = Math.ceil(posts.length / paginationLimit);
+
+    // only show the next and previous button on certain occasions
+    if (pageCount === 1) {
+        prevButton.classList.add('d-none');
+        nextButton.classList.add('d-none');
+    } else if (pageNum === 1) {
+        prevButton.classList.add('d-none');
+        nextButton.classList.remove('d-none');
+    } else if (pageNum === pageCount) {
+        prevButton.classList.remove('d-none');
+        nextButton.classList.add('d-none');
+    } else {
+        prevButton.classList.remove('d-none');
+        nextButton.classList.remove('d-none');
+    }
 
     paginationNumbers.innerHTML = '';
 
@@ -80,14 +84,12 @@ function renderPage(posts) {
         appendPageNumber(i);
     }
 
-    
     currentPage = pageNum;
     
     const prevRange = (pageNum - 1) * paginationLimit;
     const currRange = pageNum * paginationLimit;
 
     document.querySelectorAll(".pagination-number").forEach((button) => {
-        console.log(button)
         button.classList.remove("active");
         const pageIndex = Number(button.getAttribute("page-index"));
         if (pageIndex === currentPage) {
@@ -96,9 +98,12 @@ function renderPage(posts) {
         }
       });
 
-
-    let shownPosts = posts.slice(prevRange, currRange);
-    console.log(shownPosts);
+      let shownPosts = '';
+      if (searchTerm !== '') {
+        shownPosts = posts;
+      } else {
+        shownPosts = posts.slice(prevRange, currRange);
+      }
 
     /* End of Pagination */
     
@@ -106,13 +111,13 @@ function renderPage(posts) {
     shownPosts.forEach(post => {
         const postArticle = `<article class="post">
         <figure>
-        <a href="/pages/index.html?art=${post.random}" class="overlay">
+        <a href="/pages/index.html?art=${post.date}" class="overlay">
         <div class="center">
         <p>Read More</p>
         <i class="fa-solid fa-eye fa-xl"></i>
         </div>
         </a>
-        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1738&q=80" alt="${post.title}">
+        <img src="${post.heroImage}" alt="${post.title}">
         </figure>
         <p><span class="category-pill">${post.category}</span></p>
         <h1>${post.title}</h1>
@@ -185,6 +190,16 @@ document.querySelector('#pagination-numbers').addEventListener('click', (e) => {
         pageNum = Number(e.target.getAttribute('page-index'));
         getPosts();
     };
+});
+
+prevButton.addEventListener("click", () => {
+    pageNum = currentPage - 1;
+    getPosts();
+});
+
+nextButton.addEventListener("click", () => {
+    pageNum = currentPage + 1;
+    getPosts();
 });
 
 /* end of change page */
