@@ -530,8 +530,24 @@ footer i:hover {
     margin-top: 10px;
 }
 
-#add-textbox-buttons button:hover,
-#add-textbox-buttons button:focus {
+#add-textbox-buttons button:hover {
+    background-color: transparent;
+    color: var(--clr-main-blue);
+} 
+
+#publish {
+    margin-top: 3rem;
+    background-color: var(--clr-main-blue);
+    border: 1px solid var(--clr-main-blue);
+    font-size: 1rem;
+    color: white;
+    border-radius: .5em;
+    cursor: pointer;
+    padding: 1em 2em;
+    transition: background-color 200ms ease-in, color 200ms ease-in;
+}
+
+#publish:hover {
     background-color: transparent;
     color: var(--clr-main-blue);
 } 

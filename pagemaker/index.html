@@ -32,36 +32,39 @@
             </section>
 
             <section id="add" class="d-none">
-                <label for="title-input">Title:</label>
-                <input type="text" name="title" id="add-title" required>
-                <label for="add-category">Category:</label>
-                <input type="text" name="category" id="add-category" required>
-                <label for="add-teaser">Intro teaser:</label>
-                <textarea name="teaser" id="add-teaser" rows="10" required></textarea>
-                <label for="add-hero-image">Intro teaser:</label>
-                <input type="text" name="hero-image" id="add-hero-image" placeholder="https://images.unsplash.com/photo-1559113202-c916b8e44373?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGJlbGdpdW18ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60" required>
-                <label for="add-textbox-text">Text:</label>
-                <div id="add-textbox">
-                    <div id="add-textbox-buttons">
-                        <button data-element="b" id="bold">B</button>
-                        <button data-element="strong" id="strong">S</button>
-                        <button data-element="i" id="italic">I</button>
-                        <button data-element="u" id="underline">U</button>
-                        <!-- <button data-element="h1" id="h1">h1</button> -->
-                        <button data-element="h2" id="h2">h2</button>
-                        <button data-element="h3" id="h3">h3</button>
-                        <button data-element="a" id="a-link"><i class="fa-solid fa-link"></i></button>
-                        <button data-element="img" id="image"><i class="fa-solid fa-image"></i></button>
-                        <button data-element="p" id="paragraph"><i class="fa-solid fa-align-justify"></i></button>
-                        <button data-element="div" id="div-columns"><i class="fa-solid fa-table-columns"></i></button>
-                        <!-- <button data-element="" id="image-left"><i class="fa-solid fa-image"></i> L</button>
-                        <button data-element="" id="image-right">R <i class="fa-solid fa-image"></i></button>
-                        <button data-element="" id="paragraph-right"><i class="fa-solid fa-align-left"></i></button>
-                        <button data-element="" id="paragraph-left"><i class="fa-solid fa-align-right"></i></button> -->
-                        <button data-element="quote" id="quote"><i class="fa-solid fa-quote-left"></i></button>
+                <form action="#">
+                    <label for="title-input">Title:</label>
+                    <input type="text" name="title" id="add-title" required>
+                    <label for="add-category">Category:</label>
+                    <input type="text" name="category" id="add-category" required>
+                    <label for="add-teaser">Intro teaser:</label>
+                    <textarea name="teaser" id="add-teaser" rows="10" required></textarea>
+                    <label for="add-hero-image">Intro teaser:</label>
+                    <input type="text" name="hero-image" id="add-hero-image" placeholder="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" required>
+                    <label for="add-textbox-text">Text:</label>
+                    <div id="add-textbox">
+                        <div id="add-textbox-buttons">
+                            <button data-element="b" id="bold">B</button>
+                            <button data-element="strong" id="strong">S</button>
+                            <button data-element="i" id="italic">I</button>
+                            <button data-element="u" id="underline">U</button>
+                            <!-- <button data-element="h1" id="h1">h1</button> -->
+                            <button data-element="h2" id="h2">h2</button>
+                            <button data-element="h3" id="h3">h3</button>
+                            <button data-element="a" id="a-link"><i class="fa-solid fa-link"></i></button>
+                            <button data-element="img" id="image"><i class="fa-solid fa-image"></i></button>
+                            <button data-element="p" id="paragraph"><i class="fa-solid fa-align-justify"></i></button>
+                            <button data-element="div" id="div-columns"><i class="fa-solid fa-table-columns"></i></button>
+                            <!-- <button data-element="" id="image-left"><i class="fa-solid fa-image"></i> L</button>
+                            <button data-element="" id="image-right">R <i class="fa-solid fa-image"></i></button>
+                            <button data-element="" id="paragraph-right"><i class="fa-solid fa-align-left"></i></button>
+                            <button data-element="" id="paragraph-left"><i class="fa-solid fa-align-right"></i></button> -->
+                            <button data-element="quote" id="quote"><i class="fa-solid fa-quote-left"></i></button>
+                        </div>
+                        <div id="add-textbox-text" contenteditable="true">Replace text here</div>
                     </div>
-                    <div id="add-textbox-text" contenteditable="true">Replace text here</div>
-                </div>
+                    <button type="submit" id="publish">Publish</button>
+                </form>
                 <label for="page-content-article" id="page-content-label">Preview:</label>
                 <div id="page-content">
                     <div id="page-content-article">
