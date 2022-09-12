@@ -33,26 +33,16 @@ addTitle.addEventListener('input', () => {
 const addMarkUp = (element) => {
     const sel = document.getSelection();
 
-
-
-    /* TODO */
-    // CTRL + A gives error
-
-
     const startSelection = sel.anchorOffset > sel.focusOffset ? sel.focusOffset : sel.anchorOffset;
     const endSelection = sel.focusOffset > sel.anchorOffset ? sel.focusOffset : sel.anchorOffset;
-    console.log('startSelection: ', startSelection);
-    console.log('endSelection: ', endSelection);
-    const allText = sel.anchorNode.data;
-    const selectedText = allText.slice(startSelection, endSelection);
-    const before = allText.slice(0, startSelection);
-    const after = allText.slice(endSelection);
 
-    console.log('element: ', element)
-    console.log('before: ', before)
-    console.log('selectedText: ', selectedText)
-    console.log('after: ', after)
+    // if ctrlA is used to select the text, the behaviour is different
+    const ctrlA = sel.anchorNode.data ? false : true;
+    const allText = ctrlA ? sel.anchorNode.textContent : sel.anchorNode.data;
 
+    const selectedText = ctrlA ? allText : allText.slice(startSelection, endSelection);
+    const before = ctrlA ? '' : allText.slice(0, startSelection);
+    const after = ctrlA ? '' : allText.slice(endSelection);
 
     if (startSelection === endSelection) {
         return;
@@ -72,7 +62,6 @@ const addMarkUp = (element) => {
             break;
     }
 
-    console.log(text);
     addTextboxText.innerText = text;
 }
 
