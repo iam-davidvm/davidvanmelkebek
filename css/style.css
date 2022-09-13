@@ -496,7 +496,7 @@ footer i:hover {
     width: 100%;
 }
 
-#add #add-category {
+#add #add-category.show-categories {
     margin-bottom: 0;
     border-radius: .5em .5em 0 0;
 }
@@ -516,6 +516,10 @@ footer i:hover {
 
 #search-result-list li {
     cursor: pointer;
+}
+
+#search-result-list li:hover {
+    color: rgb(0 0 0 / .65);
 }
 
 #add #page-content-label {

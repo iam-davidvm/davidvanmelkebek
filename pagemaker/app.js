@@ -11,6 +11,7 @@ addButton.addEventListener('click', () => {
 
 const addTitle = document.getElementById('add-title');
 const addCategory = document.getElementById('add-category');
+const searchResult = document.getElementById('search-result');
 const searchResultList = document.getElementById('search-result-list');
 const addTeaser = document.getElementById('add-teaser');
 const addHeroImage = document.getElementById('add-hero-image');
@@ -144,15 +145,34 @@ submitButton.addEventListener('submit', (e) => {
     e.preventDefault();
 });
 
+/* you don't need to type the catogory if it already exists */
 addCategory.addEventListener('input', async () => {
     const posts = await getPosts();
-    const categories = [...new Map(posts.map(item => [item.category, item.category])).values()];
-    console.log(categories);
+    const inputValue = addCategory.value;
+    const allCategories = [...new Map(posts.map(item => [item.category, item.category])).values()];
+    const showCategories = allCategories.filter(category => {
+        return category.includes(inputValue.toLowerCase());
+    });
+
+    if (showCategories.length > 0 && allCategories.length !== showCategories.length) {
+        addCategory.classList.add('show-categories');
+        searchResult.classList.remove('d-none');
+        let items = '';
+        for (let category of showCategories) {
+            items += `<li data-result="${category}">${category}</li>`;
+        }
+        searchResultList.innerHTML = items;
+    } else {
+        addCategory.classList.remove('show-categories');
+        searchResult.classList.add('d-none');
+    }
 });
 
 searchResultList.addEventListener('click', (e) => {
     let element = e.target;
     if (element.tagName === 'LI') {
         addCategory.value = element.dataset.result;
+        addCategory.classList.remove('show-categories');
+        searchResult.classList.add('d-none');
     };
 })
