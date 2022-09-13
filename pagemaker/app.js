@@ -11,11 +11,13 @@ addButton.addEventListener('click', () => {
 
 const addTitle = document.getElementById('add-title');
 const addCategory = document.getElementById('add-category');
+const searchResultList = document.getElementById('search-result-list');
 const addTeaser = document.getElementById('add-teaser');
 const addHeroImage = document.getElementById('add-hero-image');
 const addTextboxButtons = document.getElementById('add-textbox-buttons');
 const addButtons = addTextboxButtons.querySelectorAll('button');
 const addTextboxText = document.getElementById('add-textbox-text');
+//date to show on the preview, when publishing the text, we will use a new precise one
 let previewDate = new Date();
 previewDate = `${previewDate.getDate()} ${previewDate.toLocaleString('default', {month:'long'})} ${previewDate.getFullYear()}`;
 
@@ -29,44 +31,47 @@ addTitle.addEventListener('input', () => {
     pageContentTitle.innerText = addTitle.value;
 });
 
+async function getPosts() {
+    const url = '../arts/arts.json';
+    try {
+        let res = await fetch(url);
+        let data = await res.json();
+        let posts = data.arts;
+        return posts;
+    } catch (error) {
+        console.log('My error: ' + error);
+    }
+}
 
-const addMarkUp = (element, text) => {
-    
-    console.log(element);
 
-    const sel = window.getSelection();
-
-    // can we use the array and find the selected node in the array?
-    // the div.innerText splitten op /n?
-    console.log("sel.getRangeAt(0)", sel.getRangeAt(0).commonAncestorContainer);
-    console.log("text.length", text.length);
-    console.log(addTextboxText.innerText.split('\n'));
-    console.log(addTextboxText.innerText.split('\n').indexOf(sel.getRangeAt(0).commonAncestorContainer.data));
-
-    
-    const startSelection = sel.anchorOffset > sel.focusOffset ? sel.focusOffset : sel.anchorOffset;
-    const endSelection = sel.focusOffset > sel.anchorOffset ? sel.focusOffset : sel.anchorOffset;
-    
-    // if ctrlA is used to select the text, the behaviour is different
-    const ctrlA = sel.anchorNode.data ? false : true;
-    const allText = ctrlA ? sel.anchorNode.textContent : sel.anchorNode.data;
-    
-    console.log("sel", sel.anchorNode.childNodes)
-    console.log("ctrlA", ctrlA)
-    console.log("allText", allText);
-
-    const selectedText = ctrlA ? allText : text.slice(startSelection, endSelection);
-    const before = ctrlA ? '' : text.slice(0, startSelection);
-    const after = ctrlA ? '' : text.slice(endSelection);
-
-    console.log("before", before);
-    console.log("selectedText", selectedText);
-    console.log("after", after);
-
-    if (startSelection === endSelection) {
+const addMarkUp = (element, sel, selectAll) => {
+    // normally this will not fire
+    if (sel.focusOffset === sel.anchorOffset) {
         return;
     }
+    
 
+    const allText = addTextboxText.innerText.split('\n');
+
+    let selectedText = addTextboxText.innerText;
+    let before = '';
+    let after = '';
+    let textIndex = -1;
+
+    // if it's a particular selection, we have to split the text into arrays, because getSelection only got the start end position of the specific line
+    if (!selectAll) {
+        textIndex = addTextboxText.innerText.split('\n').indexOf(sel.getRangeAt(0).commonAncestorContainer.data);
+        // this won't work if two lines have the same text. 
+        const changeText = allText[textIndex];    
+    
+        const startSelection = sel.anchorOffset > sel.focusOffset ? sel.focusOffset : sel.anchorOffset;
+        const endSelection = sel.focusOffset > sel.anchorOffset ? sel.focusOffset : sel.anchorOffset;
+        
+        selectedText = changeText.slice(startSelection, endSelection);
+        before = changeText.slice(0, startSelection);
+        after = changeText.slice(endSelection);
+        
+    }
 
     switch (element) {
         case 'b':
@@ -90,23 +95,40 @@ const addMarkUp = (element, text) => {
         case 'quote': 
             text = `${before}<p class="page-content-quote">${selectedText}</p>${after}`;
             break;
+        default:
+            // if something goes wrong, we want to return the original text
+            text = `${selectedText}`;
     }
 
-    console.log("text", text);
 
-    addTextboxText.innerText = text;
+    // we want to handle a select all different
+    if (selectAll) {
+        addTextboxText.innerText = text;
+    } else {
+        allText[textIndex] = text;
+        let markup = '';
+        for (let item of allText) {
+            markup += `${item}\n`;
+        }
+        addTextboxText.innerText = markup;
+    }
+
+    pageContentBody.innerHTML = addTextboxText.innerText;
+    
 }
 
 addButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         e.preventDefault();
-        // const text = addTextboxText.innerText.replaceAll('\n', ' ');
-        const text = addTextboxText.innerText;
+        const selectedNode = window.getSelection();
 
-        // break it
-        // setTimeOut(addMarkUp(e.target.dataset.element, multiLines), 3000);
+        // check if all text is selected
+        const selectAll = addTextboxText.textContent === selectedNode.anchorNode.textContent;
 
-        addMarkUp(e.target.dataset.element, text);
+        const element = e.target.tagName === 'BUTTON' ? e.target.dataset.element : e.target.parentElement.dataset.element;
+
+        addMarkUp(element, selectedNode, selectAll);
+
     });
 });
 
@@ -120,4 +142,17 @@ addTextboxText.addEventListener('change', () => {
 
 submitButton.addEventListener('submit', (e) => {
     e.preventDefault();
+});
+
+addCategory.addEventListener('input', async () => {
+    const posts = await getPosts();
+    const categories = [...new Map(posts.map(item => [item.category, item.category])).values()];
+    console.log(categories);
+});
+
+searchResultList.addEventListener('click', (e) => {
+    let element = e.target;
+    if (element.tagName === 'LI') {
+        addCategory.value = element.dataset.result;
+    };
 })

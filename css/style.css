@@ -496,6 +496,28 @@ footer i:hover {
     width: 100%;
 }
 
+#add #add-category {
+    margin-bottom: 0;
+    border-radius: .5em .5em 0 0;
+}
+
+
+#search-result-list {
+    margin-top: 0;
+    margin-bottom: 20px;
+    list-style-type: none;
+    padding: 5px 10px;
+    border: 1px solid var(--clr-main-blue);
+    border-top: none;
+    border-radius: 0 0 .5em .5em;
+    background-color: rgba(217, 217, 217, 0.25);
+    color: rgb(0 0 0 / .35);
+}
+
+#search-result-list li {
+    cursor: pointer;
+}
+
 #add #page-content-label {
     margin-top: 30px;
 }

@@ -1,6 +1,15 @@
 {
     "arts": [
         {
+            "title": "This sounds negative",
+            "heroImage": "https://images.unsplash.com/photo-1473163928189-364b2c4e1135?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+            "teaser": "With sweat but without tears or blood",
+            "body": "<p>This website only contains HTML, CSS and JS. Even how this content is created is via HTML/CSS/JS.</p><h2>More info</h2><p>Because I type this directly in json in the text editor, it is difficult to find inspiration</p><p>More to come</p>",
+            "date": "1662578992",
+            "category": "showstop",
+            "author": "David"
+        },
+        {
             "title": "I relate to this one",
             "heroImage": "https://images.unsplash.com/photo-1473163928189-364b2c4e1135?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
             "teaser": "With sweat but without tears or blood",
