@@ -26,13 +26,14 @@
 
     <main id="create">
         <div class="container">
+            
             <section id="buttons">
                 <button id="add-button">Add new content</button>
                 <button id="edit-button">Edit content</button>
             </section>
 
             <section id="add" class="d-none">
-                <form action="#">
+                <form>
                     <label for="title-input">Title:</label>
                     <input type="text" name="title" id="add-title" required>
                     <label for="add-category">Category:</label>
@@ -44,7 +45,7 @@
                     <label for="add-teaser">Intro teaser:</label>
                     <textarea name="teaser" id="add-teaser" rows="10" required></textarea>
                     <label for="add-hero-image">Intro teaser:</label>
-                    <input type="text" name="hero-image" id="add-hero-image" placeholder="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" required>
+                    <input type="text" name="hero-image" id="add-hero-image" placeholder="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80">
                     <label for="add-textbox-text">Text:</label>
                     <div id="add-textbox">
                         <div id="add-textbox-buttons">
@@ -65,9 +66,9 @@
                             <button data-element="" id="paragraph-left"><i class="fa-solid fa-align-right"></i></button> -->
                             <button data-element="quote" id="quote"><i class="fa-solid fa-quote-left"></i></button>
                         </div>
-                        <div id="add-textbox-text" contenteditable="true">Replace text here</div>
+                        <div id="add-textbox-text" contenteditable="true">Replace text here.</div>
                     </div>
-                    <button type="submit" id="publish">Publish</button>
+                    <button id="publish">Publish</button>
                 </form>
                 <label for="page-content-article" id="page-content-label">Preview:</label>
                 <div id="page-content">
@@ -99,7 +100,7 @@
             <section id="edit" class="d-none">
                 <input type="text" name="search" id="search" placeholder="Search">
 
-                <ul>
+                <ul id="posts-list">
                     <li><a href="#"><i class="fa-solid fa-pen"></i> Title 1</a></li>
                     <li><a href="#"><i class="fa-solid fa-pen"></i> Title 2</a></li>
                     <li><a href="#"><i class="fa-solid fa-pen"></i> Title 3</a></li>

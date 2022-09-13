@@ -1,37 +1,3 @@
-const addButton = document.getElementById('add-button');
-const editButton = document.getElementById('edit-button');
-const submitButton = document.getElementById('publish');
-const addSection = document.getElementById('add');
-
-addButton.addEventListener('click', () => {
-    const buttons = document.getElementById('buttons');
-    buttons.style.display = 'none'; 
-    addSection.classList.remove('d-none');
-});
-
-const addTitle = document.getElementById('add-title');
-const addCategory = document.getElementById('add-category');
-const searchResult = document.getElementById('search-result');
-const searchResultList = document.getElementById('search-result-list');
-const addTeaser = document.getElementById('add-teaser');
-const addHeroImage = document.getElementById('add-hero-image');
-const addTextboxButtons = document.getElementById('add-textbox-buttons');
-const addButtons = addTextboxButtons.querySelectorAll('button');
-const addTextboxText = document.getElementById('add-textbox-text');
-//date to show on the preview, when publishing the text, we will use a new precise one
-let previewDate = new Date();
-previewDate = `${previewDate.getDate()} ${previewDate.toLocaleString('default', {month:'long'})} ${previewDate.getFullYear()}`;
-
-const pageContentTitle = document.getElementById('page-content-title');
-const pageDate = document.getElementById('page-date');
-const pageContentBody = document.getElementById('page-content-body');
-
-pageDate.innerText = previewDate;
-
-addTitle.addEventListener('input', () => {
-    pageContentTitle.innerText = addTitle.value;
-});
-
 async function getPosts() {
     const url = '../arts/arts.json';
     try {
@@ -43,6 +9,54 @@ async function getPosts() {
         console.log('My error: ' + error);
     }
 }
+
+/* get query param of string */
+const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+});
+
+const value = params.edit;
+console.log(value);
+
+const addButton = document.getElementById('add-button');
+const editButton = document.getElementById('edit-button');
+const addSection = document.getElementById('add');
+
+const container = document.getElementById('create').querySelector('.container');
+
+addButton.addEventListener('click', () => {
+    const buttons = document.getElementById('buttons');
+    buttons.style.display = 'none'; 
+    addSection.classList.remove('d-none');
+});
+
+
+// add page variables
+const addTitle = document.getElementById('add-title');
+const addCategory = document.getElementById('add-category');
+const searchResult = document.getElementById('search-result');
+const searchResultList = document.getElementById('search-result-list');
+const addTeaser = document.getElementById('add-teaser');
+const addHeroImage = document.getElementById('add-hero-image');
+const addTextboxButtons = document.getElementById('add-textbox-buttons');
+const addButtons = addTextboxButtons.querySelectorAll('button');
+const addTextboxText = document.getElementById('add-textbox-text');
+
+//date to show on the preview, when publishing the text, we will use a new precise one
+let previewDate = new Date();
+previewDate = `${previewDate.getDate()} ${previewDate.toLocaleString('default', {month:'long'})} ${previewDate.getFullYear()}`;
+
+const pageContentTitle = document.getElementById('page-content-title');
+const pageDate = document.getElementById('page-date');
+const pageContentBody = document.getElementById('page-content-body');
+const submitButton = document.getElementById('publish');
+
+pageDate.innerText = previewDate;
+
+addTitle.addEventListener('input', () => {
+    pageContentTitle.innerText = addTitle.value;
+});
+
 
 
 const addMarkUp = (element, sel, selectAll) => {
@@ -141,10 +155,6 @@ addTextboxText.addEventListener('change', () => {
     pageContentBody.innerHTML = addTextboxText.innerText;
 });
 
-submitButton.addEventListener('submit', (e) => {
-    e.preventDefault();
-});
-
 /* you don't need to type the catogory if it already exists */
 addCategory.addEventListener('input', async () => {
     const posts = await getPosts();
@@ -176,3 +186,59 @@ searchResultList.addEventListener('click', (e) => {
         searchResult.classList.add('d-none');
     };
 })
+
+
+submitButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    const heroImg = addHeroImage.value === '' ? 'https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80' : addHeroImage.value;
+    const submitPost = {
+        title: `${addTitle.value}`,
+        heroImage: `${heroImg}`,
+        teaser: `${addTeaser.value}`,
+        body: `${addTextboxText.textContent}`,
+        date: `${Date.now()}`,
+        category: `${addCategory.value.toLowerCase()}`,
+        author: 'David',
+    };
+
+    // Here it stops, because I don't know how to write to json right now
+    const jsonPost = JSON.stringify(submitPost);
+    navigator.clipboard.writeText(jsonPost);
+    console.log('object saved to clipboard');
+    container.innerHTML = '<p class="success">The item was succesfully copied to your clipboard!</p>';
+});
+
+// edit page elements
+const editSection = document.getElementById('edit');
+const searchPosts = document.getElementById('search');
+const postsList = document.getElementById('posts-list');
+
+editButton.addEventListener('click', async() => {
+    const buttons = document.getElementById('buttons');
+    buttons.style.display = 'none'; 
+    editSection.classList.remove('d-none');
+    const posts = await getPosts();
+    const filteredPosts = [...new Map(posts.map(item => [item.date, [item.title, item.date]])).values()];
+    let lis = '';
+    for (let item of filteredPosts) {
+        lis += `<li><a href="index.html?edit=${item[1]}"><i class="fa-solid fa-pen"></i> ${item[0]}</a></li>`;
+    }
+    postsList.innerHTML = lis;
+});
+
+searchPosts.addEventListener('input', async() => {
+    const posts = await getPosts();
+    let filteredPosts = [...new Map(posts.map(item => [item.date, [item.title, item.date]])).values()];
+    filteredPosts = filteredPosts.filter(item => {
+        return item[0].toLowerCase().includes(searchPosts.value.toLowerCase());
+    });
+    let lis = '';
+    for (let item of filteredPosts) {
+        lis += `<li><a href="index.html?edit=${item[1]}"><i class="fa-solid fa-pen"></i> ${item[0]}</a></li>`;
+    }
+    if (lis === '') {
+        postsList.innerHTML = 'No posts found.'
+    } else {
+        postsList.innerHTML = lis;
+    }
+});

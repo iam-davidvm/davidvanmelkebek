@@ -1,3 +1,4 @@
+/* get query param of string */
 const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
 });
@@ -26,7 +27,7 @@ function renderPage(post) {
     const content = document.getElementById('page-content-article');
     const articleCategory = document.getElementById('page-hero-category');
     const pageHeroImg = document.getElementById('page-hero-image');
-    const dateObject = new Date(post.date * 1000);
+    const dateObject = new Date(parseInt(post.date));
     
     pageHeroImg.src = post.heroImage;
     pageHeroImg.alt = post.title;

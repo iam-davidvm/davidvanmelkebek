@@ -470,6 +470,25 @@ footer i:hover {
     color: white;
 }
 
+#create .success {
+    padding: 2em 3em;
+    background-color: #1AA170;
+    color: rgb(255 255 255 / .7);
+    border-radius: 1em;
+    animation-duration: 2s;
+    animation-name: fadeIn;
+}
+
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+
 #add label {
     color: var(--clr-main-blue);
     font-family: 'Coustard', serif;
