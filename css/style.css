@@ -489,6 +489,17 @@ footer i:hover {
     }
   }
 
+  #create .success a {
+    color: rgb(255 255 255 / .85);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  #create .success a:hover {
+    text-decoration: underline;
+  }
+
+
 #add label {
     color: var(--clr-main-blue);
     font-family: 'Coustard', serif;
