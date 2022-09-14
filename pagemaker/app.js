@@ -72,19 +72,48 @@ const addMarkUp = (element, sel, selectAll) => {
     let before = '';
     let after = '';
     let textIndex = -1;
+    let textStartIndex = 0;
+    let textEndIndex = 1;
+    const selectSingle = sel.getRangeAt(0).startContainer === sel.getRangeAt(0).endContainer;
 
     // if it's a particular selection, we have to split the text into arrays, because getSelection only got the start end position of the specific line
     if (!selectAll) {
-        textIndex = addTextboxText.innerText.split('\n').indexOf(sel.getRangeAt(0).commonAncestorContainer.data);
-        // this won't work if two lines have the same text. 
-        const changeText = allText[textIndex];    
-    
-        const startSelection = sel.anchorOffset > sel.focusOffset ? sel.focusOffset : sel.anchorOffset;
-        const endSelection = sel.focusOffset > sel.anchorOffset ? sel.focusOffset : sel.anchorOffset;
+        const textBoxArray = addTextboxText.innerText.split('\n');
+        // if only one line is selected
+        if (selectSingle){
+            textIndex = textBoxArray.indexOf(sel.getRangeAt(0).commonAncestorContainer.data);
+            // this won't work if two lines have the same text. 
+            const changeText = allText[textIndex];    
         
-        selectedText = changeText.slice(startSelection, endSelection);
-        before = changeText.slice(0, startSelection);
-        after = changeText.slice(endSelection);
+            const startSelection = sel.anchorOffset > sel.focusOffset ? sel.focusOffset : sel.anchorOffset;
+            const endSelection = sel.focusOffset > sel.anchorOffset ? sel.focusOffset : sel.anchorOffset;
+            
+            selectedText = changeText.slice(startSelection, endSelection);
+            before = changeText.slice(0, startSelection);
+            after = changeText.slice(endSelection);
+        } else {
+            textStartIndex = textBoxArray.indexOf(sel.getRangeAt(0).startContainer.data);
+            textEndIndex = textBoxArray.indexOf(sel.getRangeAt(0).endContainer.data);
+            const changeText = allText.slice(textStartIndex, textEndIndex + 1);
+
+            const startSelection = sel.anchorOffset > sel.focusOffset ? sel.focusOffset : sel.anchorOffset;
+            const endSelection = sel.focusOffset > sel.anchorOffset ? sel.focusOffset : sel.anchorOffset;
+
+            const selectedTextArray = [];
+            for (let i = 0; i < changeText.length; i++) {
+                if (i === 0) {
+                    selectedTextArray.push(changeText[i].slice(startSelection));
+                } else if (i === changeText.length - 1) {
+                    selectedTextArray.push(changeText[i].slice(0, endSelection));
+                } else {
+                    selectedTextArray.push(changeText[i]);
+                }
+            }
+            selectedText = selectedTextArray.join('\n');
+            before = changeText[0].slice(0, startSelection);
+            after = changeText[changeText.length - 1].slice(endSelection);
+        }
+
         
     }
 
@@ -116,11 +145,18 @@ const addMarkUp = (element, sel, selectAll) => {
     }
 
 
-    // we want to handle a select all different
+    // There are 3 selection posibilities: a single line/element, multiple lines or all lines
     if (selectAll) {
         addTextboxText.innerText = text;
-    } else {
+    } else if (selectSingle) {
         allText[textIndex] = text;
+        let markup = '';
+        for (let item of allText) {
+            markup += `${item}\n`;
+        }
+        addTextboxText.innerText = markup;
+    } else {
+        allText.splice(textStartIndex, textEndIndex - textStartIndex + 1, text);
         let markup = '';
         for (let item of allText) {
             markup += `${item}\n`;
