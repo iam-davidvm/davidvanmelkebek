@@ -7,6 +7,7 @@ const paginationLimit = 6;
 let currentPage;
 let pageNum = 1;
 
+
 /* get json file */
 
 async function getPosts() {
@@ -62,7 +63,7 @@ function renderPage(posts) {
     
     /* Pagination */
     const pageCount = Math.ceil(posts.length / paginationLimit);
-
+    
     // only show the next and previous button on certain occasions
     if (pageCount === 1) {
         prevButton.classList.add('d-none');
@@ -80,8 +81,14 @@ function renderPage(posts) {
 
     paginationNumbers.innerHTML = '';
 
-    for (let i = 1; i <= pageCount; i++) {
-        appendPageNumber(i);
+    // if the screen gets to small I only want to show the next & previous button
+    const windowSize = window.innerWidth;
+    const paginationSize = (50 * pageCount + 2) + 80;
+    
+    if (paginationSize <= windowSize) {
+        for (let i = 1; i <= pageCount; i++) {
+            appendPageNumber(i);
+        }
     }
 
     currentPage = pageNum;
@@ -165,7 +172,6 @@ function showCategories(posts) {
 /* change dropdown */
 
 selectCategories.addEventListener('change', (e) => {
-    console.log(e.target.value);
     selectedCategory = e.target.value;
     getPosts();
 })
@@ -182,6 +188,13 @@ searchTitles.addEventListener('input', () => {
 })
 
 /* end search for title */
+
+/* control pagination state when screen size changes */
+window.addEventListener("resize", () => {
+    getPosts();
+});
+
+/* end of screensize changes */
 
 /* change page */
 
