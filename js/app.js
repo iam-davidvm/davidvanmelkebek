@@ -1,11 +1,12 @@
 let selectedCategory = 'all';
 let searchTerm = '';
-const paginationNumbers = document.getElementById("pagination-numbers");
-const nextButton = document.getElementById("next-button");
-const prevButton = document.getElementById("prev-button");
+const paginationNumbers = document.getElementById('pagination-numbers');
+const nextButton = document.getElementById('next-button');
+const prevButton = document.getElementById('prev-button');
 const paginationLimit = 6;
 let currentPage;
 let pageNum = 1;
+const htmlPosts = document.querySelector('#posts');
 
 
 /* get json file */
@@ -20,6 +21,7 @@ async function getPosts() {
         showCategories(posts);
     } catch (error) {
         console.log('My error: ' + error);
+        htmlPosts.innerText = 'Couldn\'t find any posts :(';
     }
 }
 
@@ -30,11 +32,11 @@ getPosts();
 /* Pagination */
 const appendPageNumber = (index) => {
     
-    const pageNumber = document.createElement("button");
-    pageNumber.classList.add("pagination","pagination-number");
+    const pageNumber = document.createElement('button');
+    pageNumber.classList.add('pagination','pagination-number');
     pageNumber.innerHTML = index;
-    pageNumber.setAttribute("page-index", index);
-    pageNumber.setAttribute("aria-label", "Page " + index);
+    pageNumber.setAttribute('page-index', index);
+    pageNumber.setAttribute('aria-label', 'Page ' + index);
    
     paginationNumbers.appendChild(pageNumber);
   };
@@ -96,11 +98,11 @@ function renderPage(posts) {
     const prevRange = (pageNum - 1) * paginationLimit;
     const currRange = pageNum * paginationLimit;
 
-    document.querySelectorAll(".pagination-number").forEach((button) => {
-        button.classList.remove("active");
-        const pageIndex = Number(button.getAttribute("page-index"));
+    document.querySelectorAll('.pagination-number').forEach((button) => {
+        button.classList.remove('active');
+        const pageIndex = Number(button.getAttribute('page-index'));
         if (pageIndex === currentPage) {
-          button.classList.add("active");
+          button.classList.add('active');
           button.disabled = true;
         }
       });
@@ -134,7 +136,7 @@ function renderPage(posts) {
         html += postArticle;
     });
     
-    const htmlPosts = document.querySelector('#posts');
+    
     htmlPosts.innerHTML = html;
     if (posts.length === 0) {
         htmlPosts.innerText = 'No posts available';
@@ -155,7 +157,7 @@ function showCategories(posts) {
     selectCategories.innerHTML = '<option value="all">All categories</option>';
     for(let i = 0; i < categories.length; i++) {
         const category = categories[i];
-        const option = document.createElement("option");
+        const option = document.createElement('option');
         option.textContent = category.charAt(0).toUpperCase() + category.slice(1);;
         option.value = category;
         if (category === selectedCategory) {
@@ -190,7 +192,7 @@ searchTitles.addEventListener('input', () => {
 /* end search for title */
 
 /* control pagination state when screen size changes */
-window.addEventListener("resize", () => {
+window.addEventListener('resize', () => {
     getPosts();
 });
 
@@ -205,12 +207,12 @@ document.querySelector('#pagination-numbers').addEventListener('click', (e) => {
     };
 });
 
-prevButton.addEventListener("click", () => {
+prevButton.addEventListener('click', () => {
     pageNum = currentPage - 1;
     getPosts();
 });
 
-nextButton.addEventListener("click", () => {
+nextButton.addEventListener('click', () => {
     pageNum = currentPage + 1;
     getPosts();
 });

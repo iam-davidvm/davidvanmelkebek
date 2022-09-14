@@ -1,10 +1,13 @@
-/* get query param of string */
+/* get query param of string to see which post is requested */
 const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
 });
 
 const value = params.art;
 
+const content = document.getElementById('page-content-article');
+
+// get the post information where the query string matches
 async function getPosts() {
     const url = '../arts/arts.json';
     try {
@@ -18,13 +21,14 @@ async function getPosts() {
         showRelated(posts, post.category);
     } catch (error) {
         console.log('My error: ' + error);
+        content.innerText = 'Couldn\'t find this post :('
     }
 }
 
 getPosts();
 
+
 function renderPage(post) {
-    const content = document.getElementById('page-content-article');
     const articleCategory = document.getElementById('page-hero-category');
     const pageHeroImg = document.getElementById('page-hero-image');
     const dateObject = new Date(parseInt(post.date));
@@ -41,7 +45,9 @@ function renderPage(post) {
 
 function showRelated(posts, category) {
     const content = document.getElementById('page-related-content');
+    const moreCategoryPill = content.getElementsByClassName('more-category-pill')[0];
     
+    // if there are related posts, show them but not more then 3 items
     const relatedPosts = posts.filter(item => {
         if (item.date !== value) {
             return item.category === category;
@@ -50,11 +56,11 @@ function showRelated(posts, category) {
         }
     }).slice(0, 3);
 
-    const categoryPill = content.getElementsByClassName('category-pill')[0];
     if (relatedPosts.length > 0) {
-        categoryPill.innerText = `more ${category}`;
+        moreCategoryPill.classList.add('category-pill');
+        moreCategoryPill.innerText = `other ${category}:`;
     } else {
-        categoryPill.id = 'no-related';
+        moreCategoryPill.id = 'no-related';
     }
 
     let html = '';
