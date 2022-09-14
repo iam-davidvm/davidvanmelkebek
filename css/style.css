@@ -200,6 +200,12 @@ option {
     position: relative;
 }
 
+.post img {
+    max-height: 240px;
+    width: 100%;
+    object-fit: cover;
+}
+
 .post p, .post h1 {
     margin: 0 10px;
 }
