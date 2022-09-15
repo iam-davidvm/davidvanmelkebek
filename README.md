@@ -58,9 +58,13 @@ As I still have to learn a lot, it was interesting to create an own design and t
 
 ## Things I may change in the future
 
+I think there are still a lot of tweaks possible, but the current goal is not to make every project perfect. But try to learn as much as possible.
+
 - Using a technique to write my data to a JSON-file instead of copying it to the clipboard
 
 - Adding a favicon
+
+- If you paste text in the WYSIWYG editor it keeps it lay-out. I would like to keep the plain text only
 
 - When I am more experienced I think I can make it more performant in all domains: HTML, CSS, JavaScript
 
