@@ -60,8 +60,6 @@ As I still have to learn a lot, it was interesting to create an own design and t
 
 I think there are still a lot of tweaks possible, but the current goal is not to make every project perfect. But try to learn as much as possible.
 
-- I didn't know anything about fetch/async/promises. Currently I fetch the JSON-file multiple times. I think it is possible to fetch it once and store it, but wasn't able to achieve this. In the course I'm following it's one of the upcoming sections. After these section I can probably change this.
-
 - Using a technique to write my data to a JSON-file instead of copying it to the clipboard
 
 - Adding a favicon
