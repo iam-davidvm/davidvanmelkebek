@@ -7,7 +7,7 @@ const paginationLimit = 6;
 let currentPage;
 let pageNum = 1;
 const htmlPosts = document.querySelector('#posts');
-
+let categories = [];
 
 /* get json file */
 
@@ -17,8 +17,35 @@ async function getPosts() {
         let res = await fetch(url);
         let data = await res.json();
         let posts = data.arts;
+
+        categories = [...new Set(posts.map(post => post.category))];
+
         renderPage(posts);
-        showCategories(posts);
+        
+        /* change page */
+        document.querySelector('#pagination-numbers').addEventListener('click', (e) => {
+            if(e.target.getAttribute('page-index')) {
+                pageNum = Number(e.target.getAttribute('page-index'));
+                renderPage(posts);
+            };
+        });
+
+        prevButton.addEventListener('click', () => {
+            console.log('before', pageNum);
+            pageNum = currentPage - 1;
+            console.log('after', pageNum);
+            renderPage(posts);
+        });
+        
+        nextButton.addEventListener('click', () => {
+            console.log('before', pageNum);
+            pageNum = currentPage + 1;
+            console.log('after', pageNum);
+            renderPage(posts);
+        });
+
+        /* end of change page */
+
     } catch (error) {
         console.log('My error: ' + error);
         htmlPosts.innerText = 'Couldn\'t find any posts :(';
@@ -31,190 +58,166 @@ getPosts();
 
 /* Pagination */
 const appendPageNumber = (index) => {
-    
+        
     const pageNumber = document.createElement('button');
     pageNumber.classList.add('pagination','pagination-number');
     pageNumber.innerHTML = index;
     pageNumber.setAttribute('page-index', index);
     pageNumber.setAttribute('aria-label', 'Page ' + index);
-   
+
     paginationNumbers.appendChild(pageNumber);
-  };
- /* end of Pagination */
+};
+/* end of Pagination */
 
-/* render page */
+function renderPage (posts)  {
+    console.log('load', pageNum);
+      
+    let selectedPosts = posts;
 
-function renderPage(posts) {
-    
-    /* change category */
-    if (selectedCategory !== 'all') {
-        posts = posts.filter(item => {
-            return item.category === selectedCategory;
-        })
-    }
+    /* render posts */  
 
-    /* end of change category */
-
-    /* search title */
-    if (searchTerm !== '') {
-        posts = posts.filter(item => {
-            return item.title.toLowerCase().includes(searchTerm.toLowerCase());
-        })
-    }
-    /* end search title */
-    
-    /* Pagination */
-    const pageCount = Math.ceil(posts.length / paginationLimit);
-    
-    // only show the next and previous button on certain occasions
-    if (pageCount === 1) {
-        prevButton.classList.add('d-none');
-        nextButton.classList.add('d-none');
-    } else if (pageNum === 1) {
-        prevButton.classList.add('d-none');
-        nextButton.classList.remove('d-none');
-    } else if (pageNum === pageCount) {
-        prevButton.classList.remove('d-none');
-        nextButton.classList.add('d-none');
-    } else {
-        prevButton.classList.remove('d-none');
-        nextButton.classList.remove('d-none');
-    }
-
-    paginationNumbers.innerHTML = '';
-
-    // if the screen gets to small I only want to show the next & previous button
-    const windowSize = window.innerWidth;
-    const paginationSize = (50 * pageCount + 2) + 80;
-    
-    if (paginationSize <= windowSize) {
-        for (let i = 1; i <= pageCount; i++) {
-            appendPageNumber(i);
+        /* if the categories is changed, we only want to show the specific posts */
+        if (selectedCategory !== 'all') {
+            selectedPosts = posts.filter(item => {
+                return item.category === selectedCategory;
+            })
         }
-    }
+        /* end of change category */
 
-    currentPage = pageNum;
-    
-    const prevRange = (pageNum - 1) * paginationLimit;
-    const currRange = pageNum * paginationLimit;
-
-    document.querySelectorAll('.pagination-number').forEach((button) => {
-        button.classList.remove('active');
-        const pageIndex = Number(button.getAttribute('page-index'));
-        if (pageIndex === currentPage) {
-          button.classList.add('active');
-          button.disabled = true;
+        /* show the correct articles based on the search term*/
+        if (searchTerm !== '') {
+            selectedPosts = posts.filter(item => {
+                return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+            })
         }
-      });
-
-      let shownPosts = '';
-      if (searchTerm !== '') {
-        shownPosts = posts;
-      } else {
-        shownPosts = posts.slice(prevRange, currRange);
-      }
-
-    /* End of Pagination */
-    
-    let html = '';
-    shownPosts.forEach(post => {
-        const postArticle = `<article class="post">
-        <figure>
-        <a href="/pages/index.html?art=${post.date}" class="overlay">
-        <div class="center">
-        <p>Read More</p>
-        <i class="fa-solid fa-eye fa-xl"></i>
-        </div>
-        </a>
-        <img src="${post.heroImage}" alt="${post.title}">
-        </figure>
-        <p><span class="category-pill">${post.category}</span></p>
-        <h1>${post.title}</h1>
-        <p>${post.teaser}</p>
-        </article>`;
+        /* end search title */
         
-        html += postArticle;
-    });
-    
-    
-    htmlPosts.innerHTML = html;
-    if (posts.length === 0) {
-        htmlPosts.innerText = 'No posts available';
-    }
-
-}
-
-/* end of render page */
-
-/* fill dropdown with categories */
-
-const selectCategories = document.getElementById('select-categories');
-
-function showCategories(posts) {
-
-    const categories = [...new Map(posts.map(item => [item.category, item.category])).values()];
-    
-    selectCategories.innerHTML = '<option value="all">All categories</option>';
-    for(let i = 0; i < categories.length; i++) {
-        const category = categories[i];
-        const option = document.createElement('option');
-        option.textContent = category.charAt(0).toUpperCase() + category.slice(1);;
-        option.value = category;
-        if (category === selectedCategory) {
-            option.selected = true;
+        /* Pagination */
+        const pageCount = Math.ceil(selectedPosts.length / paginationLimit);
+        
+        // only show the next and previous button on certain occasions
+        if (pageCount === 1) {
+            prevButton.classList.add('d-none');
+            nextButton.classList.add('d-none');
+        } else if (pageNum === 1) {
+            prevButton.classList.add('d-none');
+            nextButton.classList.remove('d-none');
+        } else if (pageNum === pageCount) {
+            prevButton.classList.remove('d-none');
+            nextButton.classList.add('d-none');
+        } else {
+            prevButton.classList.remove('d-none');
+            nextButton.classList.remove('d-none');
         }
-        selectCategories.appendChild(option);
-    }
+
+        paginationNumbers.innerHTML = '';
+
+        // if the screen gets to small I only want to show the next & previous button
+        const windowSize = window.innerWidth;
+        const paginationSize = (50 * pageCount + 2) + 80;
+        
+        if (paginationSize <= windowSize) {
+            for (let i = 1; i <= pageCount; i++) {
+                appendPageNumber(i);
+            }
+        }
+
+        currentPage = pageNum;
+        
+        const prevRange = (pageNum - 1) * paginationLimit;
+        const currRange = pageNum * paginationLimit;
+
+        document.querySelectorAll('.pagination-number').forEach((button) => {
+            button.classList.remove('active');
+            const pageIndex = Number(button.getAttribute('page-index'));
+            if (pageIndex === currentPage) {
+            button.classList.add('active');
+            button.disabled = true;
+            }
+        });
+
+        selectedPosts = selectedPosts.slice(prevRange, currRange);
+
+        /* End of Pagination */
+        
+        let html = '';
+        selectedPosts.forEach(post => {
+            const postArticle = `<article class="post">
+            <figure>
+            <a href="/pages/index.html?art=${post.date}" class="overlay">
+            <div class="center">
+            <p>Read More</p>
+            <i class="fa-solid fa-eye fa-xl"></i>
+            </div>
+            </a>
+            <img src="${post.heroImage}" alt="${post.title}">
+            </figure>
+            <p><span class="category-pill">${post.category}</span></p>
+            <h1>${post.title}</h1>
+            <p>${post.teaser}</p>
+            </article>`;
+            
+            html += postArticle;
+        });
+        
+        
+        htmlPosts.innerHTML = html;
+        if (selectedPosts.length === 0) {
+            htmlPosts.innerText = 'No posts available';
+        }
+
+
+
+    /* end of render page */
+
+
+
+    /* fill dropdown with categories */
+
+    const selectCategories = document.getElementById('select-categories');
+        
+        selectCategories.innerHTML = '<option value="all">All categories</option>';
+        for(let i = 0; i < categories.length; i++) {
+            const category = categories[i];
+            const option = document.createElement('option');
+            option.textContent = category.charAt(0).toUpperCase() + category.slice(1);;
+            option.value = category;
+            if (category === selectedCategory) {
+                option.selected = true;
+            }
+            selectCategories.appendChild(option);
+        }
+
+    // getCategories();
+
+    /* end of fill dropdown */
+
+    /* change dropdown */
+
+    selectCategories.addEventListener('change', (e) => {
+        selectedCategory = e.target.value;
+        pageNum = 1;
+        renderPage(posts);
+    });
+
+    /* end of change dropdown */
+
+    /* search for title */
+
+    const searchTitles = document.getElementById('search');
+
+    searchTitles.addEventListener('input', () => {
+        searchTerm = searchTitles.value;
+        pageNum = 1;
+        renderPage(posts);
+    });
+
+    /* end search for title */
+
+    /* control pagination state when screen size changes */
+    window.addEventListener('resize', () => {
+        renderPage(posts);
+    });
+    /* end of screensize changes */
+
 }
-
-// getCategories();
-
-/* end of fill dropdown */
-
-/* change dropdown */
-
-selectCategories.addEventListener('change', (e) => {
-    selectedCategory = e.target.value;
-    getPosts();
-})
-
-/* end of change dropdown */
-
-/* search for title */
-
-const searchTitles = document.getElementById('search');
-
-searchTitles.addEventListener('input', () => {
-    searchTerm = searchTitles.value;
-    getPosts();
-})
-
-/* end search for title */
-
-/* control pagination state when screen size changes */
-window.addEventListener('resize', () => {
-    getPosts();
-});
-
-/* end of screensize changes */
-
-/* change page */
-
-document.querySelector('#pagination-numbers').addEventListener('click', (e) => {
-    if(e.target.getAttribute('page-index')) {
-        pageNum = Number(e.target.getAttribute('page-index'));
-        getPosts();
-    };
-});
-
-prevButton.addEventListener('click', () => {
-    pageNum = currentPage - 1;
-    getPosts();
-});
-
-nextButton.addEventListener('click', () => {
-    pageNum = currentPage + 1;
-    getPosts();
-});
-
-/* end of change page */
