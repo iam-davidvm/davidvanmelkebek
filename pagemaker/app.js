@@ -1,23 +1,9 @@
 const container = document.getElementById('create').querySelector('.container');
 
-async function getPosts() {
-    const url = '../arts/arts.json';
-    try {
-        let res = await fetch(url);
-        let data = await res.json();
-        let posts = data.arts;
-        return posts;
-    } catch (error) {
-        console.log('My error: ' + error);
-        container.innerText = 'Something went wrong';
-    }
-}
-
 /* get query param of string */
 const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
 });
-
 const value = params.edit;
 
 let editDate;
@@ -25,13 +11,6 @@ let editDate;
 const addButton = document.getElementById('add-button');
 const editButton = document.getElementById('edit-button');
 const addSection = document.getElementById('add');
-
-addButton.addEventListener('click', () => {
-    const buttons = document.getElementById('buttons');
-    buttons.style.display = 'none'; 
-    addSection.classList.remove('d-none');
-});
-
 
 // add page variables
 const addTitle = document.getElementById('add-title');
@@ -55,6 +34,80 @@ const pageContentBody = document.getElementById('page-content-body');
 const submitButton = document.getElementById('publish');
 
 pageDate.innerText = previewDate;
+
+const showAllPosts = posts => {
+    const buttons = document.getElementById('buttons');
+    buttons.style.display = 'none'; 
+    editSection.classList.remove('d-none');
+    const filteredPosts = [...new Map(posts.map(item => [item.date, [item.title, item.date]])).values()];
+    let lis = '';
+    for (let item of filteredPosts) {
+        lis += `<li><a href="index.html?edit=${item[1]}"><i class="fa-solid fa-pen"></i> ${item[0]}</a></li>`;
+    }
+    postsList.innerHTML = lis;
+}
+
+const searchInPosts = posts => {
+    let filteredPosts = [...new Map(posts.map(item => [item.date, [item.title, item.date]])).values()];
+    filteredPosts = filteredPosts.filter(item => {
+        return item[0].toLowerCase().includes(searchPosts.value.toLowerCase());
+    });
+    let lis = '';
+    for (let item of filteredPosts) {
+        lis += `<li><a href="index.html?edit=${item[1]}"><i class="fa-solid fa-pen"></i> ${item[0]}</a></li>`;
+    }
+    if (lis === '') {
+        postsList.innerHTML = 'No posts found.'
+    } else {
+        postsList.innerHTML = lis;
+    }
+}
+
+const showPost = posts => {
+
+    // Could also to this in the getPost function
+    const thisPost = posts.filter(item => {
+        return item.date === value;
+    });
+
+    addTitle.value = `${thisPost[0].title}`;
+    addCategory.value = `${thisPost[0].category}`;
+    addTeaser.value = `${thisPost[0].teaser}`;
+    addHeroImage.value = `${thisPost[0].heroImage}`;
+    addTextboxText.innerText = `${thisPost[0].body}`;
+    editDate = thisPost[0].date;
+    previewDate = new Date(parseInt(thisPost[0].date));
+    pageDate.innerText = `${previewDate.getDate()} ${previewDate.toLocaleString('default', {month:'long'})} ${previewDate.getFullYear()}`;
+}
+
+async function getPosts(isNull = true) {
+    const url = '../arts/arts.json';
+    try {
+        let res = await fetch(url);
+        let data = await res.json();
+        let posts = data.arts;
+
+        if (isNull) {
+            showAllPosts(posts);
+        
+            searchPosts.addEventListener('input', async() => {
+                searchInPosts(posts);
+            });
+        } else {
+            showPost(posts);
+        }
+
+    } catch (error) {
+        console.log('My error: ' + error);
+        container.innerText = 'Something went wrong';
+    }
+}
+
+addButton.addEventListener('click', () => {
+    const buttons = document.getElementById('buttons');
+    buttons.style.display = 'none'; 
+    addSection.classList.remove('d-none');
+});
 
 addTitle.addEventListener('input', () => {
     pageContentTitle.innerText = addTitle.value;
@@ -195,7 +248,7 @@ addTextboxText.addEventListener('change', () => {
 addCategory.addEventListener('input', async () => {
     const posts = await getPosts();
     const inputValue = addCategory.value;
-    const allCategories = [...new Map(posts.map(item => [item.category, item.category])).values()];
+    const allCategories = [...new Set(posts.map(post => post.category))];
     const showCategories = allCategories.filter(category => {
         return category.includes(inputValue.toLowerCase());
     });
@@ -251,34 +304,8 @@ const editSection = document.getElementById('edit');
 const searchPosts = document.getElementById('search');
 const postsList = document.getElementById('posts-list');
 
-editButton.addEventListener('click', async() => {
-    const buttons = document.getElementById('buttons');
-    buttons.style.display = 'none'; 
-    editSection.classList.remove('d-none');
-    const posts = await getPosts();
-    const filteredPosts = [...new Map(posts.map(item => [item.date, [item.title, item.date]])).values()];
-    let lis = '';
-    for (let item of filteredPosts) {
-        lis += `<li><a href="index.html?edit=${item[1]}"><i class="fa-solid fa-pen"></i> ${item[0]}</a></li>`;
-    }
-    postsList.innerHTML = lis;
-});
-
-searchPosts.addEventListener('input', async() => {
-    const posts = await getPosts();
-    let filteredPosts = [...new Map(posts.map(item => [item.date, [item.title, item.date]])).values()];
-    filteredPosts = filteredPosts.filter(item => {
-        return item[0].toLowerCase().includes(searchPosts.value.toLowerCase());
-    });
-    let lis = '';
-    for (let item of filteredPosts) {
-        lis += `<li><a href="index.html?edit=${item[1]}"><i class="fa-solid fa-pen"></i> ${item[0]}</a></li>`;
-    }
-    if (lis === '') {
-        postsList.innerHTML = 'No posts found.'
-    } else {
-        postsList.innerHTML = lis;
-    }
+editButton.addEventListener('click', () => {
+    getPosts();
 });
 
 // if there is a value, we need to  get the information of the post
@@ -289,22 +316,5 @@ if (value !== null) {
     buttons.style.display = 'none'; 
     addSection.classList.remove('d-none');
 
-    const showPost = async() => {
-        const posts = await getPosts();
-    
-        // Could also to this in the getPost function
-        const thisPost = posts.filter(item => {
-            return item.date === value;
-        });
-    
-        addTitle.value = `${thisPost[0].title}`;
-        addCategory.value = `${thisPost[0].category}`;
-        addTeaser.value = `${thisPost[0].teaser}`;
-        addHeroImage.value = `${thisPost[0].heroImage}`;
-        addTextboxText.innerText = `${thisPost[0].body}`;
-        editDate = `${thisPost[0].date}`;
-    }
-
-    showPost();
-    
+    getPosts(false) 
 }
